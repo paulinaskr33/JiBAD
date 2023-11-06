@@ -5,7 +5,7 @@ class BST:
         self.right = None
         self.parent = None
 
-def add_root(root, value):
+def add_root(root, value):  # jak Pani rozumie słowo 'root'?
     if root.value > value:
         if root.left is None:
             root.left = BST(value)
