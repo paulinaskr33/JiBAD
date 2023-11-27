@@ -13,12 +13,12 @@ class Graph:
     def __init__(self):
         self.wierzcholki = {}
 
-    def add_wierz(self, wierz):
-        self.wierzcholki[wierz] = set()
+    def add_wierz(self, wierz):  # polglish
+        self.wierzcholki[wierz] = set()  # czemu nie defaultdict?
 
     def remove_wierz(self, wierz):
         del self.wierzcholki[wierz]
-        for w in self.wierzcholki:
+        for w in self.wierzcholki:  # czy trzeba odwiedzać wszystkie wierzchołki w poszukiwaniu krawędzi do usuwanego?
             self.wierzcholki[w].discard(wierz)
 
     def add_kraw(self, w1, w2):
