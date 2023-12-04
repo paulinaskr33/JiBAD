@@ -2,9 +2,9 @@
 # Umożliwić wyświetlenie n najczęściej występujących słów _z remisami_ (tzn. jeśli słowa
 # na pozycji n+1 i n+2 wystąpiły tyle samo razy co to na pozycji n, to także mają zostać wyświetlone).
 # Przetestować na załączonym pliku potop.txt.
-def words_counter(filename, n):
-    with open(filename, 'r', encoding='utf-8') as file:
-        text = file.read().lower()
+def words_counter(filename, n):  # nazwa
+    with open(filename, 'r', encoding='utf-8') as file:  # przesłonięcie symbolu wbudowanego
+        text = file.read().lower()  # cały plik do pamięci?
 
         # Tokenizowanie
         words = []
@@ -13,14 +13,14 @@ def words_counter(filename, n):
         # text.split() dzieli mi na pojedyncze slowa a word.strip usunie znaki specjalne
 
         # Zliczanie
-        word_counts = {}
+        word_counts = {}  # collections.Counter?
         for word in words:
             word_counts[word] = word_counts.get(word, 0) + 1
 
         sorted_words = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
         max_count = sorted_words[n][1]
 
-        tied_words = [word for word, count in sorted_words if count == max_count]
+        tied_words = [word for word, count in sorted_words if count >= max_count]
 
         return tied_words
 
@@ -45,7 +45,7 @@ def words_counter(filename, n):
 # Np. zdanie "Ala ma kota" ma 2 digramy: "Ala ma" i "ma kota".
 
 def ngrams_counter(filename, n):
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(filename, 'r', encoding='utf-8') as file:  # DRY
         text = file.read()
 
         words = text.lower().split()
@@ -71,7 +71,7 @@ def top_ngrams(ngram_counter, top_ng):
         print(f'{current_rank}.{ngram}: appears {count} times')
 
         if rank == top_ng:
-            break
+            break  # a remisy?
 
 # 3. Napisać context manager do obsługi pliku .conll.
 # Iteracja po pliku powinna zwracać kolejne linie w postaci krotki bądź listy.
@@ -87,7 +87,7 @@ def top_ngrams(ngram_counter, top_ng):
 # ('kota', 'kot', 'noun')
 # ('.', '.', 'punct')
 
-class using_conll:
+class using_conll:  # proszę przemyśleć tę nazwę
     def __init__(self, filename):
         self.filename = filename
 
@@ -98,8 +98,6 @@ class using_conll:
     def __exit__(self, type, value, traceback):
         if self.file:
             self.file.close()
-        if type is not None:
-            print(f"An error occurred: {type.__name__} - {value}")
 
     def __iter__(self):
         return self
