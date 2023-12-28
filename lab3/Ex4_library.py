@@ -1,3 +1,5 @@
+# to nie jest zadanie na 1 plik
+
 import json  # zalecone przez dr Gajeckiego
 from datetime import datetime, timedelta
 
@@ -9,12 +11,12 @@ class LibrarySystem:
 
     def load_data(self):
         try:
-            with open("library_data.json", "r") as file:
+            with open("library_data.json", "r") as file:  # przesłonięcie symbolu wbudowanego
                 data = json.load(file)
                 self.books = data["books"]
                 self.users = data["users"]
         except FileNotFoundError:
-            pass
+            pass  # potrzebny komentarz
 
     def save_data(self):
         data = {"books": self.books, "users": self.users}
@@ -22,7 +24,7 @@ class LibrarySystem:
             json.dump(data, file)
 
     def login(self, username, role):
-        for user in self.users:
+        for user in self.users:  # a słownik?
             if user["username"] == username and user["role"] == role:
                 self.current_user = user
                 return True
